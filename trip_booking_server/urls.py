@@ -20,6 +20,6 @@ from django.urls import path
 from flights.views import Main
 
 urlpatterns = [
-    path("/", Main.as_view()),
+    path("", Main.as_view()),
     path("admin/", admin.site.urls),
 ]

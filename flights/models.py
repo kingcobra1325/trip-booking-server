@@ -17,6 +17,14 @@ class Flight(models.Model):
         null=True,
         blank=True,
     )
-    departure_dt = models.DateTimeField(null=True, blank=True)
-    arrival_dt = models.DateTimeField(null=True, blank=True)
-    flight_time = models.SmallIntegerField(null=True, blank=True)
+    departure_date = models.DateField(null=True, blank=True)
+    departure_time = models.TimeField(null=True, blank=True)
+
+    arrival_date = models.DateField(null=True, blank=True)
+    arrival_time = models.TimeField(null=True, blank=True)
+
+    flight_time = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+    )

@@ -101,6 +101,7 @@ Sign Out
 <div class="app-main__outer">
 <div class="app-main__inner">
 
+
 <div class="row mb-3">
 <div class="col-md-12">
 <div class="card">
@@ -108,61 +109,55 @@ Sign Out
 <div class="row">
 <div class="col-md-12">
 <div class="card-title mb-md-5 mb-3"><i class="fa fa-arrow-left"></i> Add New Request</div>
-<form>
-<div class="row customer_records">
-<div class="col-md-6 mb-3">
-<label class="form-label">Select Aircraft  <span class="reqid">*</span></label>
-<select class="form-control">
-<option>Falcon 900</option>
-<option>Falcon 600</option>
-<option>AEM 700</option>
-<option>Boing 650</option>
-</select>
-</div>
-<div class="col-md-6"></div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Origin <span class="reqid">*</span></label>
-<select class="form-control">
-<option>Delhi Airport</option>
-<option>Mumbai Airport</option>
-<option>Cochi Airport</option>
-<option>Banglore Airport</option>
-</select>
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Destination <span class="reqid">*</span></label>
-<select class="form-control">
-<option>London Airport</option>
-<option>Dumbai Airport</option>
-<option>Chenai Airport </option>
-<option>Kolkota Airport</option>
-</select>
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Departure Date &amp; Time <span class="reqid">*</span></label>
-<div class="input-group">
-<input type="date" class="form-control mr-3">
-<input type="time" class="form-control">
-</div>
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Arrival Date &amp; Time <span class="reqid">*</span></label>
-<div class="input-group">
-<input type="date" class="form-control mr-3">
-<input type="time" class="form-control">
-</div>
-</div>
-<div class="col-md-6">
-<label class="form-label">Flight Time</label>
-<input type="text" placeholder="8 Hrs" class="form-control">
-</div>
-</div>
-<div class="customer_records_dynamic"></div>
-<div class="row mt-4">
-<div class="col-md-4"></div>
-<div class="col-md-4"><button class="sub_btn_border extra-fields-customer" type="button"><i class="metismenu-icon fa fa-circle-plus"></i> Add Sector</button></div>
-<div class="col-md-4"><button class="sub_btn" type="submit">Submit <i class="metismenu-icon fa fa-arrow-right-long"></i></button></div>
-</div>
+<form method="post">
+  {% csrf_token %}
+  <div class="row customer_records">
+      <div class="col-md-6 mb-3">
+          <label class="form-label">Select Aircraft <span class="reqid">*</span></label>
+          {{ form.aircraft }}
+      </div>
+      <div class="col-md-6"></div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label">Origin <span class="reqid">*</span></label>
+          {{ form.origin }}
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label">Destination <span class="reqid">*</span></label>
+          {{ form.destination }}
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label">Departure Date & Time <span class="reqid">*</span></label>
+          <div class="input-group">
+              {{ form.departure_date }}
+              {{ form.departure_time }}
+          </div>
+      </div>
+      <div class="col-md-6 mb-3">
+          <label class="form-label">Arrival Date & Time <span class="reqid">*</span></label>
+          <div class="input-group">
+              {{ form.arrival_date }}
+              {{ form.arrival_time }}
+          </div>
+      </div>
+      <div class="col-md-6">
+          <label class="form-label">Flight Time</label>
+          {{ form.flight_time }}
+      </div>
+  </div>
+  <div class="customer_records_dynamic"></div>
+  <div class="row mt-4">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+          <button class="sub_btn_border extra-fields-customer" type="button">
+              <i class="metismenu-icon fa fa-circle-plus"></i> Add Sector
+          </button>
+      </div>
+      <div class="col-md-4">
+          <button class="sub_btn" type="submit">
+              Submit <i class="metismenu-icon fa fa-arrow-right-long"></i>
+          </button>
+      </div>
+  </div>
 </form>
 <div class="card-title mb-md-5 mb-3">Trip List</div>
 
@@ -178,20 +173,19 @@ Sign Out
       </tr>
   </thead>
   <tbody>
-      <tr>
-          <td>Falcon 900</td>
-          <td>Delhi Airport</td>
-          <td>London Airport</td>
-          <td>12-12-2000 18:20</td>
-          <td>8 Hrs</td>
-      </tr>
-      <tr>
-        <td>Falcon 900</td>
-        <td>Delhi Airport</td>
-        <td>London Airport</td>
-        <td>12-12-2000 18:20</td>
-        <td>8 Hrs</td>
-    </tr>
+      {% for flight in flights %}
+          <tr>
+              <td>{{ flight.aircraft }}</td>
+              <td>{{ flight.origin }}</td>
+              <td>{{ flight.destination }}</td>
+              <td>{{ flight.departure_datetime|date:"d-m-Y H:i" }}</td>
+              <td>{{ flight.flight_time }}</td>
+          </tr>
+      {% empty %}
+          <tr>
+              <td colspan="5">No flights available.</td>
+          </tr>
+      {% endfor %}
   </tbody>
 </table>
 
