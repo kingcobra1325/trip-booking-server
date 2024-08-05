@@ -7,20 +7,30 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Flight',
+            name="Flight",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('aircraft', models.CharField(blank=True, max_length=256, null=True)),
-                ('origin', models.CharField(blank=True, max_length=256, null=True)),
-                ('destination', models.CharField(blank=True, max_length=256, null=True)),
-                ('departure_dt', models.DateTimeField(blank=True, null=True)),
-                ('arrival_dt', models.DateTimeField(blank=True, null=True)),
-                ('flight_time', models.SmallIntegerField(blank=True, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("aircraft", models.CharField(blank=True, max_length=256, null=True)),
+                ("origin", models.CharField(blank=True, max_length=256, null=True)),
+                (
+                    "destination",
+                    models.CharField(blank=True, max_length=256, null=True),
+                ),
+                ("departure_dt", models.DateTimeField(blank=True, null=True)),
+                ("arrival_dt", models.DateTimeField(blank=True, null=True)),
+                ("flight_time", models.SmallIntegerField(blank=True, null=True)),
             ],
         ),
     ]
